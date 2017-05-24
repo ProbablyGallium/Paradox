@@ -1,6 +1,8 @@
 //Constants
 const Discord = require('discord.js');
 const client = new Discord.Client();
+var GQuotes = []
+var FWeapons = ["a steel chair!" , "a baseball bat!" , "a sword!" , "a potato. Seriously." , "A pie! the power of memes."]
 //Boot Sequence
 client.on('ready', () => {
   console.log('Ready!');
@@ -29,23 +31,33 @@ else if (message.content.startsWith(prefix + 'pressF')) {
   if (message.content === (prefix + 'help')
 ) {
     message.react('👌');
-    message.author.send("HELP:\n-help: This, of course.\n-ping: Shows your ping.\n-PressF: Pays Respects to a user, defaults to you if no user is mentioned.\n-quote: Pull a  quote.\n-storequote: Store a quote to pull later.")
+    message.author.send("HELP:\ng-help: This, of course.\ng-ping: Shows your ping.\ng-PressF: Pays Respects to a user, defaults to you if no user is mentioned.\ng-quote: Pull a quote.\ng-storequote: Store a quote to pull later.")
 }
-function getRandomIntInclusive(min, max) {
-  min = Math.ceil(min);
-  max = Math.floor(max);
-  return Math.floor(Math.random() * (max - min + 1)) + min;
+Array.prototype.randomElement = function () {
+    return GQuotes[Math.floor(Math.random() * GQuotes.length)]
 }
-var GQuotes = ['placeholder do not reference',]
+//Quote commands
 if (message.content.startsWith(prefix + 'storequote')
 ) {
   var quote =(message.content.substring(13));
-message.channel.send("Stored quote in position " + [GQuotes.length - 1] + ".")
+message.channel.send("Stored quote in position " + [GQuotes.length] + ".")
 GQuotes.push(quote);
 }
 if (message.content === (prefix + 'quote')
 ) {
-message.channel.send(GQuotes[getRandomIntInclusive(1, [GQuotes.length - 1])])
+message.channel.send(GQuotes.randomElement())
+}
+//Fight command
+if (message.content.startsWith(prefix + 'fight')) {
+var yourhp = Math.floor((Math.random() * 11) + 100);
+var theirhp = Math.floor((Math.random() * 11) + 100);
+var you = message.author
+var them = message.mentions.users.first()
+message.channel.send("It's " + you + " vs " + them + " this week on GalliumTV Fight Night!")
+while (yourhp > 0 && theirhp > 0) {
+var dmg = (Math.floor((Math.random() * 30) + 1));
+message.channel.send(you + "hits" + them + "with" + FWeapons.randomElement() + "for" + dmg + "damage!")
+}
 }
 });
 //Token
