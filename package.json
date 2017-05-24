@@ -1,0 +1,11 @@
+{
+  "name": "galliumbot",
+  "version": "0.1.5",
+  "description": "Beta 1 of GalliumBot",
+  "main": "bot.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Gallium",
+  "license": "MIT"
+}
