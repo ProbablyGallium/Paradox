@@ -2,7 +2,19 @@
 const Discord = require('discord.js');
 const client = new Discord.Client();
 var GQuotes = []
-var FWeapons = ["a steel chair!" , "a baseball bat!" , "a sword!" , "a potato. Seriously." , "A pie! the power of memes."]
+var FWeapons = ["a steel chair!" , "a baseball bat!" , "a sword!" , "a potato. Seriously." , "A pie!" , "the power of memes."]
+String.prototype.toAlternatingCase = function () {
+    tmp = this.toLowerCase(); (this[0] == this[0].toLowerCase() ? i = 1 : i = 0); for(i; i < tmp.length; i = i+2) { tmp = tmp.substr(0,i) + tmp[i].toUpperCase() + tmp.substr(i+1); } return tmp;
+}
+function sleep(ms)
+	{
+	return(
+		new Promise(function(resolve, reject)
+			{
+			setTimeout(function() { resolve(); }, ms);
+			})
+		);
+	}
 //Boot Sequence
 client.on('ready', () => {
   console.log('Ready!');
@@ -47,17 +59,22 @@ if (message.content === (prefix + 'quote')
 ) {
 message.channel.send(GQuotes.randomElement())
 }
-//Fight command
-if (message.content.startsWith(prefix + 'fight')) {
-var yourhp = Math.floor((Math.random() * 11) + 100);
-var theirhp = Math.floor((Math.random() * 11) + 100);
-var you = message.author
-var them = message.mentions.users.first()
-message.channel.send("It's " + you + " vs " + them + " this week on GalliumTV Fight Night!")
-while (yourhp > 0 && theirhp > 0) {
-var dmg = (Math.floor((Math.random() * 30) + 1));
-message.channel.send(you + "hits" + them + "with" + FWeapons.randomElement() + "for" + dmg + "damage!")
+//Coin command
+if (message.content.startsWith(prefix + 'coin')) {
+var random = Math.floor((Math.random() * 10) + 1);
+if(random & 1)
+{
+  message.channel.send("The coin landed on **heads**.")  // ODD
 }
+else
+{
+message.channel.send("The coin landed on **tails**.")    // EVEN
+}
+}
+//SpOnGeMoCk CoMmAnD
+if (message.content.startsWith(prefix + 'spongemock')) {
+  var mocktext = message.content.substring(12)
+  message.channel.send(mocktext.toAlternatingCase() + "\n\nhttps://pbs.twimg.com/media/C_emMBoWsAAgxCu.jpg")
 }
 });
 //Token
