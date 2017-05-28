@@ -78,4 +78,4 @@ if (message.content.startsWith(prefix + 'spongemock')) {
 }
 });
 //Token
-client.login("MzE1ODM0ODU2MDk1NDgxODU2.DAMhKg.H0j3P1TGoHxlZUV66Sg4fMYjpas");
+client.login("REDACTED TOKEN");
