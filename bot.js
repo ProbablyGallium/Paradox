@@ -21,16 +21,17 @@ client.on('ready', () => {
 });
 //The Good Shit
 var prefix = "g-"
-//Ping command
+
 client.on('ready', () => {
-        client.user.setGame('Being Coded by Gallium#1327');
+  client.user.setGame('Being Coded by Gallium#1327');
 });
 client.on('message', message => {
 if (message.author.bot) {return};
-  if (message.content.startsWith (prefix + 'ping')
-) {
-    message.channel.send('Pong! ' + client.ping + 'ms');
-    console.log('Client Ping reported as ' + client.ping + 'ms.')
+
+//Ping command
+if (message.content.startsWith (prefix + 'ping')) {
+  message.channel.send('Pong! ' + client.ping + 'ms');
+  console.log('Client Ping reported as ' + client.ping + 'ms.')
   }
 //PressF Command
   if (message.content === (prefix + 'pressF')) {
@@ -40,8 +41,7 @@ else if (message.content.startsWith(prefix + 'pressF')) {
   message.mentions.users.first().lastMessage.react("🇫")
 }
 //Help command
-  if (message.content === (prefix + 'help')
-) {
+  if (message.content === (prefix + 'help')) {
     message.react('👌');
     message.author.send("HELP:\ng-help: This, of course.\ng-ping: Shows your ping.\ng-PressF: Pays Respects to a user, defaults to you if no user is mentioned.\ng-quote: Pull a quote.\ng-storequote: Store a quote to pull later.")
 }
@@ -49,14 +49,12 @@ Array.prototype.randomElement = function () {
     return GQuotes[Math.floor(Math.random() * GQuotes.length)]
 }
 //Quote commands
-if (message.content.startsWith(prefix + 'storequote')
-) {
+if (message.content.startsWith(prefix + 'storequote')) {
   var quote =(message.content.substring(13));
 message.channel.send("Stored quote in position " + [GQuotes.length] + ".")
 GQuotes.push(quote);
 }
-if (message.content === (prefix + 'quote')
-) {
+if (message.content === (prefix + 'quote')) {
 message.channel.send(GQuotes.randomElement())
 }
 //Coin command
@@ -65,17 +63,15 @@ var random = Math.floor((Math.random() * 10) + 1);
 if(random & 1)
 {
   message.channel.send("The coin landed on **heads**.")  // ODD
-}
-else
-{
+} else {
 message.channel.send("The coin landed on **tails**.")    // EVEN
-}
+  }
 }
 //SpOnGeMoCk CoMmAnD
 if (message.content.startsWith(prefix + 'spongemock')) {
   var mocktext = message.content.substring(12)
   message.channel.send(mocktext.toAlternatingCase() + "\n\nhttps://pbs.twimg.com/media/C_emMBoWsAAgxCu.jpg")
-}
+  }
 });
 //Token
-client.login("REDACTED TOKEN");
+client.login("Your application\'s token here");
