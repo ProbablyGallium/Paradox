@@ -43,7 +43,7 @@ else if (message.content.startsWith(prefix + 'pressF')) {
 //Help command
   if (message.content === (prefix + 'help')) {
     message.react('👌');
-    message.author.send("HELP:\ng-help: This, of course.\ng-ping: Shows your ping.\ng-PressF: Pays Respects to a user, defaults to you if no user is mentioned.\ng-quote: Pull a quote.\ng-storequote: Store a quote to pull later.")
+    message.author.send("HELP:\ng-help: This, of course.\ng-ping: Shows your ping.\ng-PressF: Pays Respects to a user, defaults to you if no user is mentioned.\ng-quote: Pull a quote.\ng-storequote: Store a quote to pull later.\ng-coin: Flips a coin.\ng-spongemock: dOeS tHiS tO tHe StRiNg, attached with a spongemock meme.")
 }
 Array.prototype.randomElement = function () {
     return GQuotes[Math.floor(Math.random() * GQuotes.length)]
