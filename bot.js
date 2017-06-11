@@ -3,7 +3,6 @@ const Discord = require('discord.js');
 const client = new Discord.Client();
 var GQuotes = []
 var Fstrings = [", but they tripped over a rock and fell in the ocean.", ", but they hurt themselves in their confusion.", ". SHORYUKEN!", ". HADOUKEN!", ". KA-POW!", " with a pillow.", " with a large fish.", ", but they stumbled over their shoelaces.", ", but they missed.", " with a burnt piece of toast.", ", but it wasn't very effective..."];
-var rand = Fstrings[Math.floor(Math.random() * Fstrings.length)];
 String.prototype.toAlternatingCase = function () {
     tmp = this.toLowerCase(); (this[0] == this[0].toLowerCase() ? i = 1 : i = 0); for(i; i < tmp.length; i = i+2) { tmp = tmp.substr(0,i) + tmp[i].toUpperCase() + tmp.substr(i+1); } return tmp;
 }
@@ -83,6 +82,36 @@ message.channel.send(message.author.username + " is fighting " + message.mention
 //ayy => lmao
 if (message.content.startsWith("ayy")){
   message.channel.send("lmao");
+}
+if (message.content === (prefix + "guildinfo")) {
+  const embed = {
+    "color": message.author.displaycolor,
+    "thumbnail": {
+      "url": message.guild.iconURL
+    },
+    "author": {
+      "name": "Information on " + message.guild.name + ":"
+    },
+    "fields": [
+      {
+        "name": "Guild Owner",
+        "value": message.guild.owner.user.tag
+      },
+      {
+        "name": "Guild ID",
+        "value": message.guild.id
+      },
+      {
+        "name": "Members",
+        "value": message.guild.memberCount + " members"
+      },
+      {
+        "name": "Region",
+        "value": message.guild.region
+      }
+    ]
+  };
+message.channel.send({embed})
 }
 //Token
 client.login("Your application\'s token here");
