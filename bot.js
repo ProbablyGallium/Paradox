@@ -71,7 +71,6 @@ if (message.content.startsWith(prefix + 'spongemock')) {
 //Fight Command, No regrets, Logiz
 if(message.content.startsWith(prefix + "fight")) {
  if (message.mentions.users.size < 1) {
-   console.log(message.mentions.users.size)
    message.reply("you can't fight thin air, pick someone...");
 }
 else if (message.mentions.users.size > 1) {
@@ -81,6 +80,7 @@ else if (message.mentions.users.size > 1) {
 message.channel.send(message.author.username + " is fighting " + message.mentions.users.first().username + Fstrings.randomElement(Fstrings));
 }
 }
+//Guildinfo command
 if (message.content === (prefix + "guildinfo")) {
   const embed = {
     "description": "Created by " + message.guild.owner.user.tag + " on "  + message.guild.createdAt,
@@ -108,9 +108,19 @@ if (message.content === (prefix + "guildinfo")) {
   };
 message.channel.send({embed})
 }
-    if (message.content===(prefix + 'about')){
-message.react("👌")
-message.author.send(":wave: **Hi there!** :smiley: \n\nThis bot is made by <@158272711146209281>, and the code can be found at https://github.com/benzarr410/GalliumBot. It's also being further developed by <@107599228900999168> so that it fits what his server needs, so check out his repo too at https://github.com/jennasisis/GalliumBot. \n\nYou can find all the commands for this bot by typing ``g-help``. **Remember, this bot is still in development.** So most of its features may still be buggy. If you encounter any problems, please feel free to contact <@158272711146209281>. \n\n**Thanks for using the bot!**")
+if (message.content === (prefix + 'about')){
+message.channel.send(":wave: **Hi there!** :smiley: \n\nThis bot is made by Gallium#1327, and the code can be found at https://github.com/benzarr410/GalliumBot. It's also being further developed by Akii#2111 so that it fits what his server needs, so check out his repo too at https://github.com/jennasisis/GalliumBot. \n\nYou can find all the commands for this bot by typing ``g-help``. **Remember, this bot is still in development.** So most of its features may still be buggy. If you encounter any problems, please feel free to contact Gallium#1327. \n\n**Thanks for using the bot!**")
+}
+if(message.content.startsWith(prefix + "shame")) {
+ if (message.mentions.users.size < 1) {
+   message.reply("Shame on...no one. You forgot to shame someone.");
+}
+else if (message.mentions.users.size > 1) {
+  message.channel.send("Whoa, you're shaming too many people. One at a time pls.")
+}
+  else {
+message.channel.send(message.mentions.users.first() + ", 🔔 ***S H A M E*** 🔔");
+}
 }
 });
 //Token
