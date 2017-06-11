@@ -67,11 +67,21 @@ if(random & 1)
 message.channel.send("The coin landed on **tails**.")    // EVEN
   }
 }
+// Fight command. Replace <insert fight here> with your fight of choice.
+if(message.content.startsWith(prefix + "fight")) {
+  let user = message.mentions.users.first();
+  if (reason.length < 1) return message.reply("You can't fight thing air dude, pick someone...");
+      message.channel.send(`${message.author.username} is fighting ${message.mentions.users.first().username} <insert fight here>`)
+}
 //SpOnGeMoCk CoMmAnD
 if (message.content.startsWith(prefix + 'spongemock')) {
   var mocktext = message.content.substring(12)
   message.channel.send(mocktext.toAlternatingCase() + "\n\nhttps://pbs.twimg.com/media/C_emMBoWsAAgxCu.jpg")
   }
 });
+
+
+
+
 //Token
 client.login("Your application\'s token here");
