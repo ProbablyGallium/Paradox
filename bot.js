@@ -84,5 +84,9 @@ else if (message.mentions.users.size > 1) {
 message.channel.send(message.author.username + " is fighting " + message.mentions.users.first().username + rand);
 }
 }
+//ayy => lmao
+if (message.content.startsWith("ayy")){
+  message.channel.send("lmao!");
+}
 //Token
 client.login("Your application\'s token here");
