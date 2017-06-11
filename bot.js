@@ -108,6 +108,10 @@ if (message.content === (prefix + "guildinfo")) {
   };
 message.channel.send({embed})
 }
+    if (message.content===(prefix + 'about')){
+message.react("👌")
+message.author.send(":wave: **Hi there!** :smiley: \n\nThis bot is made by <@158272711146209281>, and the code can be found at https://github.com/benzarr410/GalliumBot. It's also being further developed by <@107599228900999168> so that it fits what his server needs, so check out his repo too at https://github.com/jennasisis/GalliumBot. \n\nYou can find all the commands for this bot by typing ``g-help``. **Remember, this bot is still in development.** So most of its features may still be buggy. If you encounter any problems, please feel free to contact <@158272711146209281>. \n\n**Thanks for using the bot!**")
+}
 });
 //Token
 client.login("token");
