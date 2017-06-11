@@ -37,17 +37,19 @@ else if (message.content.startsWith(prefix + 'pressF')) {
     message.react('👌');
     message.author.send("HELP:\ng-help: This, of course.\ng-ping: Shows your ping.\ng-PressF: Pays Respects to a user, defaults to you if no user is mentioned.\ng-quote: Pull a quote.\ng-storequote: Store a quote to pull later.\ng-coin: Flips a coin.\ng-spongemock: dOeS tHiS tO tHe StRiNg, attached with a spongemock meme.")
 }
-Array.prototype.randomElement = function () {
-    return GQuotes[Math.floor(Math.random() * GQuotes.length)]
+Array.prototype.randomElement = function (array) {
+    return array[Math.floor(Math.random() * array.length)]
 }
 //Quote commands
-if (message.content.startsWith(prefix + 'storequote')) {
+if (message.content.startsWith(prefix + 'storequote')
+) {
   var quote =(message.content.substring(13));
 message.channel.send("Stored quote in position " + [GQuotes.length] + ".")
 GQuotes.push(quote);
 }
-if (message.content === (prefix + 'quote')) {
-message.channel.send(GQuotes.randomElement())
+if (message.content === (prefix + 'quote')
+) {
+message.channel.send(GQuotes.randomElement(GQuotes))
 }
 //Coin command
 if (message.content.startsWith(prefix + 'coin')) {
@@ -58,12 +60,6 @@ if(random & 1)
 } else {
 message.channel.send("The coin landed on **tails**.")    // EVEN
   }
-}
-// Fight command. Replace <insert fight here> with your fight of choice.
-if(message.content.startsWith(prefix + "fight")) {
-  let user = message.mentions.users.first();
-  if (reason.length < 1) return message.reply("You can't fight thing air dude, pick someone...");
-      message.channel.send(`${message.author.username} is fighting ${message.mentions.users.first().username} <insert fight here>`)
 }
 //SpOnGeMoCk CoMmAnD
 if (message.content.startsWith(prefix + 'spongemock')) {
@@ -81,12 +77,12 @@ else if (message.mentions.users.size > 1) {
   message.channel.send("Whoa, hang on there, Chuck Norris. One at a time.")
 }
   else {
-message.channel.send(message.author.username + " is fighting " + message.mentions.users.first().username + rand);
+message.channel.send(message.author.username + " is fighting " + message.mentions.users.first().username + Fstrings.randomElement(Fstrings));
 }
 }
 //ayy => lmao
 if (message.content.startsWith("ayy")){
-  message.channel.send("lmao!");
+  message.channel.send("lmao");
 }
 //Token
 client.login("Your application\'s token here");
