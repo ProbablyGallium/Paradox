@@ -84,7 +84,7 @@ message.channel.send(message.author.username + " is fighting " + message.mention
 if (message.content === (prefix + "guildinfo")) {
   const embed = {
     "description": "Created by " + message.guild.owner.user.tag + " on "  + message.guild.createdAt,
-    "color": message.author.displaycolor,
+    "color": message.member.displaycolor,
     "thumbnail": {
       "url": message.guild.iconURL
     },
