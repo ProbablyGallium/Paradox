@@ -2,19 +2,11 @@
 const Discord = require('discord.js');
 const client = new Discord.Client();
 var GQuotes = []
-var FWeapons = ["a steel chair!" , "a baseball bat!" , "a sword!" , "a potato. Seriously." , "A pie!" , "the power of memes."]
+var Fstrings = [", but they tripped over a rock and fell in the ocean.", ", but they hurt themselves in their confusion.", ". SHORYUKEN!", ". HADOUKEN!", ". KA-POW!", " with a pillow.", " with a large fish.", ", but they stumbled over their shoelaces.", ", but they missed.", " with a burnt piece of toast.", ", but it wasn't very effective..."];
+var rand = Fstrings[Math.floor(Math.random() * Fstrings.length)];
 String.prototype.toAlternatingCase = function () {
     tmp = this.toLowerCase(); (this[0] == this[0].toLowerCase() ? i = 1 : i = 0); for(i; i < tmp.length; i = i+2) { tmp = tmp.substr(0,i) + tmp[i].toUpperCase() + tmp.substr(i+1); } return tmp;
 }
-function sleep(ms)
-	{
-	return(
-		new Promise(function(resolve, reject)
-			{
-			setTimeout(function() { resolve(); }, ms);
-			})
-		);
-	}
 //Boot Sequence
 client.on('ready', () => {
   console.log('Ready!');
@@ -79,9 +71,15 @@ if (message.content.startsWith(prefix + 'spongemock')) {
   message.channel.send(mocktext.toAlternatingCase() + "\n\nhttps://pbs.twimg.com/media/C_emMBoWsAAgxCu.jpg")
   }
 });
-
-
-
-
+//Fight Command, No regrets, Logiz
+if(message.content.startsWith(prefix + "fight")) {
+  /*let user = message.mentions.users.first();
+ if (reason.length < 1) {
+   console.log(reason.length)
+   message.reply("you can't fight thin air, pick someone...");
+}
+  else {*/
+message.channel.send(message.author.username + " is fighting " + message.mentions.users.first().username + rand);
+}
 //Token
 client.login("Your application\'s token here");
