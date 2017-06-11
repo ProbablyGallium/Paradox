@@ -73,13 +73,16 @@ if (message.content.startsWith(prefix + 'spongemock')) {
 });
 //Fight Command, No regrets, Logiz
 if(message.content.startsWith(prefix + "fight")) {
-  /*let user = message.mentions.users.first();
- if (reason.length < 1) {
-   console.log(reason.length)
+ if (message.mentions.users.size < 1) {
+   console.log(message.mentions.users.size)
    message.reply("you can't fight thin air, pick someone...");
 }
-  else {*/
+else if (message.mentions.users.size > 1) {
+  message.channel.send("Whoa, hang on there, Chuck Norris. One at a time.")
+}
+  else {
 message.channel.send(message.author.username + " is fighting " + message.mentions.users.first().username + rand);
+}
 }
 //Token
 client.login("Your application\'s token here");
