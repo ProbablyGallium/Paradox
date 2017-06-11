@@ -7,15 +7,6 @@ var rand = Fstrings[Math.floor(Math.random() * Fstrings.length)];
 String.prototype.toAlternatingCase = function () {
     tmp = this.toLowerCase(); (this[0] == this[0].toLowerCase() ? i = 1 : i = 0); for(i; i < tmp.length; i = i+2) { tmp = tmp.substr(0,i) + tmp[i].toUpperCase() + tmp.substr(i+1); } return tmp;
 }
-function sleep(ms)
-	{
-	return(
-		new Promise(function(resolve, reject)
-			{
-			setTimeout(function() { resolve(); }, ms);
-			})
-		);
-	}
 //Boot Sequence
 client.on('ready', () => {
   console.log('Ready!');
