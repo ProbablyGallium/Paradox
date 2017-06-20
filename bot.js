@@ -21,15 +21,20 @@ client.on('message', message => {
 if (message.author.bot) {return};
   if (message.content.startsWith (prefix + 'ping')
 ) {
-    message.channel.send('Pong! ' + client.ping + 'ms');
-    console.log('Client Ping reported as ' + client.ping + 'ms.')
+    message.channel.send('Pong! ' + Math.round(client.ping) + 'ms');
+    console.log('Client Ping reported as ' + Math.round(client.ping) + 'ms.')
   }
 //PressF Command
   if (message.content === (prefix + 'pressF')) {
 message.reply("🇫")
 }
 else if (message.content.startsWith(prefix + 'pressF')) {
+  if (message.channel.type === "dm") {
+    message.channel.send("🇫")
+  }
+  else {
   message.mentions.users.first().lastMessage.react("🇫")
+}
 }
 //Help command
   if (message.content === (prefix + 'help')
@@ -43,24 +48,31 @@ Array.prototype.randomElement = function (array) {
 //Quote commands
 if (message.content.startsWith(prefix + 'storequote')
 ) {
+  if (message.channel.type === "dm") {
+    message.channel.send("Sorry, but this command can't be used in DMs.")
+  }
+  else {
   var quote =(message.content.substring(13));
 message.channel.send("Stored quote in position " + [GQuotes.length] + ".")
 GQuotes.push(quote);
-}
+}}
 if (message.content === (prefix + 'quote')
 ) {
+  if (message.channel.type === "dm") {
+    message.channel.send("Sorry, but this command can't be used in DMs.")
+  }
+  else {
 message.channel.send(GQuotes.randomElement(GQuotes))
+}
 }
 //Coin command
 if (message.content.startsWith(prefix + 'coin')) {
 var random = Math.floor((Math.random() * 10) + 1);
 if(random & 1)
-{
-  message.channel.send("The coin landed on **heads**.")
+{ message.channel.send("The coin landed on **heads**.")
 }
 else
-{
-message.channel.send("The coin landed on **tails**.")
+{ message.channel.send("The coin landed on **tails**.")
 }
 }
 //SpOnGeMoCk CoMmAnD
@@ -71,45 +83,52 @@ if (message.content.startsWith(prefix + 'spongemock')) {
 //Fight Command, No regrets, Logiz
 if(message.content.startsWith(prefix + "fight")) {
  if (message.mentions.users.size < 1) {
-   message.reply("you can't fight thin air, pick someone...");
+   message.reply("You can't fight thin air, pick someone...");
 }
 else if (message.mentions.users.size > 1) {
   message.channel.send("Whoa, hang on there, Chuck Norris. One at a time.")
 }
   else {
+    if (message.channel.type === "dm") {
+      message.channel.send(message.author.username + " is fighting GalliumBot" + Fstrings.randomElement(Fstrings));
+    }
+    else {
 message.channel.send(message.author.username + " is fighting " + message.mentions.users.first().username + Fstrings.randomElement(Fstrings));
-}
-}
+}}}
 //Guildinfo command
 if (message.content === (prefix + "guildinfo")) {
-  const embed = {
-    "description": "Created by " + message.guild.owner.user.tag + " on "  + message.guild.createdAt,
-    "color": message.member.displaycolor,
-    "thumbnail": {
-      "url": message.guild.iconURL
-    },
-    "author": {
-      "name": "Information on " + message.guild.name + ":"
-    },
-    "fields": [
-      {
-        "name": "Guild ID",
-        "value": message.guild.id
+  if (message.channel.type === "dm") {
+    message.channel.send("Whoa, there! You trying to crash the bot? I can't give you guild info in a channel that isn't in a guild!")
+  }
+  else {
+    const embed = {
+      "description": "Created by " + message.guild.owner.user.tag + " on "  + message.guild.createdAt,
+      "color": message.member.displaycolor,
+      "thumbnail": {
+        "url": message.guild.iconURL
       },
-      {
-        "name": "Members",
-        "value": message.guild.memberCount + " members"
+      "author": {
+        "name": "Information on " + message.guild.name + ":"
       },
-      {
-        "name": "Region",
-        "value": message.guild.region
-      }
-    ]
-  };
+      "fields": [
+        {
+          "name": "Guild ID",
+          "value": message.guild.id
+        },
+        {
+          "name": "Members",
+          "value": message.guild.memberCount + " members"
+        },
+        {
+          "name": "Region",
+          "value": message.guild.region
+        }
+      ]
+    };
 message.channel.send({embed})
-}
+}}
 if (message.content === (prefix + 'about')){
-message.channel.send(":wave: **Hi there!** :smiley: \n\nThis bot is made by Gallium#1327, and the code can be found at https://github.com/benzarr410/GalliumBot. It's also being further developed by Akii#2111 so that it fits what his server needs, so check out his repo too at https://github.com/jennasisis/GalliumBot. \n\nYou can find all the commands for this bot by typing ``g-help``. **Remember, this bot is still in development.** So most of its features may still be buggy. If you encounter any problems, please feel free to contact Gallium#1327. \n\n**Thanks for using the bot!**")
+message.channel.send(":wave: **Hi there!** :smiley: \n\nThis bot is made by Gallium#1327, and the code can be found at https://github.com/benzarr410/GalliumBot. It's also being further developed by Akii#2111 so that it fits what their server needs, so check out their repo too at https://github.com/jennasisis/GalliumBot. \n\nYou can find all the commands for this bot by typing ``g-help``. **Remember, this bot is still in development.** So most of its features may still be buggy. If you encounter any problems, please feel free to contact Gallium#1327. \n\n**Thanks for using the bot!**")
 }
 if(message.content.startsWith(prefix + "shame")) {
  if (message.mentions.users.size < 1) {
@@ -120,8 +139,7 @@ else if (message.mentions.users.size > 1) {
 }
   else {
 message.channel.send(message.mentions.users.first() + ", 🔔 ***S H A M E*** 🔔");
-}
-}
-});
+}}}
+);
 //Token
 client.login("token");
