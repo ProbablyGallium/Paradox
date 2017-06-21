@@ -7,6 +7,10 @@ var rand = Fstrings[Math.floor(Math.random() * Fstrings.length)];
 String.prototype.toAlternatingCase = function () {
     tmp = this.toLowerCase(); (this[0] == this[0].toLowerCase() ? i = 1 : i = 0); for(i; i < tmp.length; i = i+2) { tmp = tmp.substr(0,i) + tmp[i].toUpperCase() + tmp.substr(i+1); } return tmp;
 }
+function randNum(min, max) {
+  return Math.floor(Math.random() * (max - min + 1)) + min;
+}
+const sleep = require('system-sleep');
 //Boot Sequence
 client.on('ready', () => {
   console.log('Ready!');
@@ -40,7 +44,7 @@ else if (message.content.startsWith(prefix + 'pressF')) {
   if (message.content === (prefix + 'help')
 ) {
     message.react('👌');
-    message.author.send("HELP:\ng-help: This, of course.\ng-ping: Shows your ping.\ng-pressF: Pays Respects to a user, defaults to you if no user is mentioned.\ng-quote: Pull a quote.\ng-storequote: Store a quote to pull later.\ng-coin: Flip a coin.\ng-spongemock <text>: MoCk SoMe TeXt\ng-fight @user: Fight someone, ripped straight from Bug-Bot\ng-guildinfo: Learn about the guild you're in. **REQUIRES EMBED LINKS**\ng-about: Learn more about me!")
+    message.author.send("HELP:\ng-help: This, of course.\ng-ping: Shows your ping.\ng-pressF: Pays Respects to a user, defaults to you if no user is mentioned.\ng-quote: Pull a quote.\ng-storequote: Store a quote to pull later.\ng-coin: Flip a coin.\ng-spongemock <text>: MoCk SoMe TeXt\ng-fight @user: Fight someone, ripped straight from Bug-Bot\ng-guildinfo: Learn about the guild you're in. **REQUIRES EMBED LINKS**\ng-spinner: Spin a fidget spinner.\ng-about: Learn more about me!")
 }
 Array.prototype.randomElement = function (array) {
     return array[Math.floor(Math.random() * array.length)]
@@ -139,7 +143,43 @@ else if (message.mentions.users.size > 1) {
 }
   else {
 message.channel.send(message.mentions.users.first() + ", 🔔 ***S H A M E*** 🔔");
-}}}
-);
+}
+}
+if (message.content.startsWith(prefix + "spinner")) {
+ if (message.content == prefix + "spinner") {
+   message.channel.send("Available spinners: Red, Orange, Yellow, Green, Blue, Purple, Space\n\nSpin one of these with `g-spinner <type>`")
+ }
+ else {
+  var spinnerType = message.content.substring(10)
+if (spinnerType == "red") {
+  var spinner = "<:SpinnerRed:327104207683321856>"
+}
+else if (spinnerType == "orange") {
+  var spinner = "<:SpinnerOrange:327104207662481408>"
+}
+else if (spinnerType == "yellow") {
+  var spinner = "<:SpinnerYellow:327104208048226304>"
+}
+else if (spinnerType == "green") {
+  var spinner = "<:SpinnerGreen:327104207058370560> "
+}
+else if (spinnerType == "blue") {
+  var spinner = "<:SpinnerBlue:327104206987198464>"
+}
+else if (spinnerType == "purple") {
+  var spinner = "<:SpinnerPurple:327104206567636992>"
+}
+else if (spinnerType == "pink") {
+  var spinner = "<:SpinnerPink:327104206244937729>"
+}
+else if (spinnerType == "space") {
+  var spinner = "<:SpinnerSpace:327104206060126208>"
+}
+message.channel.send("You spun the " + spinnerType + " spinner. " + spinner )
+var spinFor = randNum(10, 120)
+sleep(spinFor*1000);
+message.channel.send("Your " + spinnerType + " spinner spun for **" + spinFor + "** seconds. " + spinner)
+}}
+});
 //Token
-client.login("token");
+client.login("MzE1ODM0ODU2MDk1NDgxODU2.DChP4w.XofKDgPi6rjkYtS2-dV33mveXBk");
