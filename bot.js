@@ -4,6 +4,7 @@ const client = new Discord.Client();
 var GQuotes = []
 var Fstrings = [", but they tripped over a rock and fell in the ocean.", ", but they hurt themselves in their confusion.", ". SHORYUKEN!", ". HADOUKEN!", ". KA-POW!", " with a pillow.", " with a large fish.", ", but they stumbled over their shoelaces.", ", but they missed.", " with a burnt piece of toast.", ", but it wasn't very effective..."];
 var rand = Fstrings[Math.floor(Math.random() * Fstrings.length)];
+var dadmode = 1
 String.prototype.toAlternatingCase = function () {
     tmp = this.toLowerCase(); (this[0] == this[0].toLowerCase() ? i = 1 : i = 0); for(i; i < tmp.length; i = i+2) { tmp = tmp.substr(0,i) + tmp[i].toUpperCase() + tmp.substr(i+1); } return tmp;
 }
@@ -180,6 +181,22 @@ var spinFor = randNum(10, 120)
 sleep(spinFor*1000);
 message.channel.send("Your " + spinnerType + " spinner spun for **" + spinFor + "** seconds. " + spinner)
 }}
+if (message.content.startsWith(prefix + "dadmode")) {
+  if (message.content.substring(10) === "off") {
+    var dadmode = 0;
+  message.channel.send("Dad mode off. Dad must have gone on a business trip.")
+}
+else if (message.content.substring(10) === "on") {
+  var dadmode = 1;
+  message.channel.send("Dad mode on. Send a message starting with **I'm** to begin.")
+}
+  else {
+    message.channel.send("I couldn't understand. If you would like to turn dad mode off, type `g-dadmode off`. If you want to turn it back on, type `g-dadmode on`.")
+  }
+  }
+if (message.content.startsWith("I'm") && (dadmode = 1)) {
+  message.channel.send("Hi, " + message.content.substring(4) + ", I'm Dad!")
+}
 });
 //Token
-client.login("MzE1ODM0ODU2MDk1NDgxODU2.DChP4w.XofKDgPi6rjkYtS2-dV33mveXBk");
+client.login("token");
