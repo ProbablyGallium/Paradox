@@ -183,18 +183,19 @@ message.channel.send("Your " + spinnerType + " spinner spun for **" + spinFor + 
 }}
 if (message.content.startsWith(prefix + "dadmode")) {
   if (message.content.substring(10) === "off") {
-    var dadmode = 0;
+  dadmode = 0;
   message.channel.send("Dad mode off. Dad must have gone on a business trip.")
 }
 else if (message.content.substring(10) === "on") {
-  var dadmode = 1;
+  dadmode = 1;
   message.channel.send("Dad mode on. Send a message starting with **I'm** to begin.")
 }
   else {
     message.channel.send("I couldn't understand. If you would like to turn dad mode off, type `g-dadmode off`. If you want to turn it back on, type `g-dadmode on`.")
   }
   }
-if (message.content.startsWith("I'm") && (dadmode = 1)) {
+  console.log(dadmode)
+if (message.content.startsWith("I'm") && dadmode == "1") {
   message.channel.send("Hi, " + message.content.substring(4) + ", I'm Dad!")
 }
 });
