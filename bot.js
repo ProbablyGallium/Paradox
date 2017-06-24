@@ -1,6 +1,8 @@
 //Constants
 const Discord = require('discord.js');
 const client = new Discord.Client();
+const sleep = require('system-sleep');
+const fs = require('fs');
 var GQuotes = []
 var Fstrings = [", but they tripped over a rock and fell in the ocean.", ", but they hurt themselves in their confusion.", ". SHORYUKEN!", ". HADOUKEN!", ". KA-POW!", " with a pillow.", " with a large fish.", ", but they stumbled over their shoelaces.", ", but they missed.", " with a burnt piece of toast.", ", but it wasn't very effective..."];
 var rand = Fstrings[Math.floor(Math.random() * Fstrings.length)];
@@ -8,10 +10,12 @@ var dadmode = 1
 String.prototype.toAlternatingCase = function () {
     tmp = this.toLowerCase(); (this[0] == this[0].toLowerCase() ? i = 1 : i = 0); for(i; i < tmp.length; i = i+2) { tmp = tmp.substr(0,i) + tmp[i].toUpperCase() + tmp.substr(i+1); } return tmp;
 }
+function insertSpaces(aString) {
+  return aString.split("").join(" ");
+}
 function randNum(min, max) {
   return Math.floor(Math.random() * (max - min + 1)) + min;
 }
-const sleep = require('system-sleep');
 //Boot Sequence
 client.on('ready', () => {
   console.log('Ready!');
@@ -194,9 +198,13 @@ else if (message.content.substring(10) === "on") {
     message.channel.send("I couldn't understand. If you would like to turn dad mode off, type `g-dadmode off`. If you want to turn it back on, type `g-dadmode on`.")
   }
   }
-  console.log(dadmode)
 if (message.content.startsWith("I'm") && dadmode == "1") {
   message.channel.send("Hi, " + message.content.substring(4) + ", I'm Dad!")
+}
+if (message.content.startsWith(prefix + 'aesthetic')) {
+  var spacedtext = message.content.substring(11)
+  var wavetext = insertSpaces(spacedtext)
+  message.channel.send("```"+wavetext.substring(2)+"```")
 }
 });
 //Token
