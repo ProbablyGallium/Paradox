@@ -220,4 +220,4 @@ if (message.content.startsWith(prefix + "temp")) {
 }
 });
 //Token
-client.login("MzE1ODM0ODU2MDk1NDgxODU2.DChP4w.XofKDgPi6rjkYtS2-dV33mveXBk");
+client.login("TOKEN");
