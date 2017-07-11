@@ -6,7 +6,7 @@ const fs = require('fs');
 var GQuotes = []
 var Fstrings = [", but they tripped over a rock and fell in the ocean.", ", but they hurt themselves in their confusion.", ". SHORYUKEN!", ". HADOUKEN!", ". KA-POW!", " with a pillow.", " with a large fish.", ", but they stumbled over their shoelaces.", ", but they missed.", " with a burnt piece of toast.", ", but it wasn't very effective..."];
 var rand = Fstrings[Math.floor(Math.random() * Fstrings.length)];
-var dadmode = 1
+var dadmode = 0
 String.prototype.toAlternatingCase = function () {
     tmp = this.toLowerCase(); (this[0] == this[0].toLowerCase() ? i = 1 : i = 0); for(i; i < tmp.length; i = i+2) { tmp = tmp.substr(0,i) + tmp[i].toUpperCase() + tmp.substr(i+1); } return tmp;
 }
@@ -206,6 +206,18 @@ if (message.content.startsWith(prefix + 'aesthetic')) {
   var wavetext = insertSpaces(spacedtext)
   message.channel.send("```"+wavetext.substring(2)+"```")
 }
+if (message.content.startsWith(prefix + "temp")) {
+  if (message.content.substring(7,8) === "c") {
+    var starttemp = message.content.substring(8)
+    var endtemp = Math.round(10*starttemp*1.8+32)/10;
+    message.channel.send(starttemp + "°C = " + endtemp + "°F.")
+  }
+  else if (message.content.substring(7,8) === "f") {
+    var starttemp = message.content.substring(8)
+    var endtemp = Math.round(10*(starttemp-32)/1.8)/10
+    message.channel.send(starttemp + "°F = " + endtemp + "°C.")
+  }
+}
 });
 //Token
-client.login("token");
+client.login("MzE1ODM0ODU2MDk1NDgxODU2.DChP4w.XofKDgPi6rjkYtS2-dV33mveXBk");
