@@ -5,9 +5,9 @@ const sleep = require('system-sleep');
 const fs = require('fs');
 const config = require('./config.json');
 var Quotes = []
-var Fstrings = [" with a transformer.", ", but creates a black hole and gets sucked in.", " with poutine.", ", but they slipped on a banana peel", " and in the end, the only victor was the coffin maker.", ", and what a fight it is!  Whoa mama!", ", with two thousand blades!", ", but he fell into a conveniently placed manhole!, but they tripped over a rock and fell in the ocean.", ", but they hurt themselves in their confusion.", ". SHORYUKEN!", ". HADOUKEN!", ". KA-POW!", " with a pillow.", " with a large fish.", ", but they stumbled over their shoelaces.", ", but they missed.", " with a burnt piece of toast.", ", but it wasn't very effective..."];
+var Fstrings = [" with a transformer.", ", but creates a black hole and gets sucked in.", " with poutine.", ", but they slipped on a banana peel", " and in the end, the only victor was the coffin maker.", ", and what a fight it is!  Whoa mama!", ", with two thousand blades!", ", but he fell into a conveniently placed manhole!" , ", but they tripped over a rock and fell in the ocean.", ", but they hurt themselves in their confusion.", ". SHORYUKEN!", ". HADOUKEN!", ". KA-POW!", " with a pillow.", " with a large fish.", ", but they stumbled over their shoelaces.", ", but they missed.", " with a burnt piece of toast.", ", but it wasn't very effective..."];
 var rand = Fstrings[Math.floor(Math.random() * Fstrings.length)];
-var dadmode = (config.dadmode)
+var dadmode = 0
 String.prototype.toAlternatingCase = function () {
     tmp = this.toLowerCase(); (this[0] == this[0].toLowerCase() ? i = 1 : i = 0); for(i; i < tmp.length; i = i+2) { tmp = tmp.substr(0,i) + tmp[i].toUpperCase() + tmp.substr(i+1); } return tmp;
 }
@@ -17,7 +17,7 @@ function insertSpaces(aString) {
 function randNum(min, max) {
   return Math.floor(Math.random() * (max - min + 1)) + min;
 }
-//Boot Sequence
+//Boot Sequencef
 client.on('ready', () => {
   console.log('Ready!')
 });
@@ -93,18 +93,18 @@ if (message.content.startsWith(prefix + 'spongemock')) {
 //Fight Command, No regrets, Logiz
 if(message.content.startsWith(prefix + "fight")) {
  if (message.mentions.users.size < 1) {
-   message.reply("You can't fight thin air, pick someone...");
+if (message.channel.type = "dm") {
+  message.channel.send(message.author.username + " is fighting Paradox" + Fstrings.randomElement(Fstrings))
 }
+   message.reply("You can't fight thin air, pick someone...");
+ } 
 else if (message.mentions.users.size > 1) {
   message.channel.send("Whoa, hang on there, Chuck Norris. One at a time.")
 }
-  else {
-    if (message.channel.type === "dm") {
-      message.channel.send(message.author.username + " is fighting Paradox" + Fstrings.randomElement(Fstrings));
-    }
     else {
 message.channel.send(message.author.username + " is fighting " + message.mentions.users.first().username + Fstrings.randomElement(Fstrings));
-}}}
+}
+}
 //Guildinfo command
 if (message.content === (prefix + "guildinfo")) {
   if (message.channel.type === "dm") {
@@ -138,7 +138,7 @@ if (message.content === (prefix + "guildinfo")) {
 message.channel.send({embed})
 }}
 if (message.content === (prefix + 'about')){
-message.channel.send(":wave: **Hi there!** :smiley: \n\nThis bot is made by Gallium#1327, and the code can be found at https://github.com/benzarr410/GalliumBot. It's also being further developed by Akii#2111 so that it fits what their server needs, so check out their repo too at https://github.com/jennasisis/GalliumBot. \n\nYou can find all the commands for this bot by typing ``p.help``. **Remember, this bot is still in development.** So most of its features may still be buggy. If you encounter any problems, please feel free to contact Gallium#1327. \n\n**Thanks for using the bot!**")
+message.channel.send(":wave: **Hi there!** :smiley: \n\nThis bot is made by Gallium#1327, and the code can be found at https://github.com/benzarr410/Paradox. It's also being further developed by Akii#2111 so that it fits what their server needs, so check out their repo too at https://github.com/jennasisis/AkiiBot. \n\nYou can find all the commands for this bot by typing ``p.help``. **Remember, this bot is still in development.** So most of its features may still be buggy. If you encounter any problems, please feel free to contact Gallium#1327. \n\n**Thanks for using the bot!**")
 }
 if(message.content.startsWith(prefix + "shame")) {
  if (message.mentions.users.size < 1) {
