@@ -3,7 +3,7 @@ const Discord = require('discord.js');
 const client = new Discord.Client();
 const sleep = require('system-sleep');
 const fs = require('fs');
-var GQuotes = []
+var Quotes = []
 var Fstrings = [" with a transformer.", ", but creates a black hole and gets sucked in.", " with poutine.", ", but they slipped on a banana peel", " and in the end, the only victor was the coffin maker.", ", and what a fight it is!  Whoa mama!", ", with two thousand blades!", ", but he fell into a conveniently placed manhole!, but they tripped over a rock and fell in the ocean.", ", but they hurt themselves in their confusion.", ". SHORYUKEN!", ". HADOUKEN!", ". KA-POW!", " with a pillow.", " with a large fish.", ", but they stumbled over their shoelaces.", ", but they missed.", " with a burnt piece of toast.", ", but it wasn't very effective..."];
 var rand = Fstrings[Math.floor(Math.random() * Fstrings.length)];
 var dadmode = 0
@@ -62,8 +62,8 @@ if (message.content.startsWith(prefix + 'storequote')
   }
   else {
   var quote =(message.content.substring(13));
-message.channel.send("Stored quote in position " + [GQuotes.length] + ".")
-GQuotes.push(quote);
+message.channel.send("Stored quote in position " + [Quotes.length] + ".")
+Quotes.push(quote);
 }}
 if (message.content === (prefix + 'quote')
 ) {
@@ -71,7 +71,7 @@ if (message.content === (prefix + 'quote')
     message.channel.send("Sorry, but this command can't be used in DMs.")
   }
   else {
-message.channel.send(GQuotes.randomElement(GQuotes))
+message.channel.send(Quotes.randomElement(Quotes))
 }
 }
 //Coin command
