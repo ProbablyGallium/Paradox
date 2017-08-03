@@ -4,6 +4,20 @@ const client = new Discord.Client();
 const sleep = require('system-sleep');
 const fs = require('fs');
 const config = require('./config.json');
+const moment = require('moment');
+var now = new moment();
+function clean(text) {
+  if (typeof(text) === "string")
+    return text.replace(/`/g, "`" + String.fromCharCode(8203)).replace(/@/g, "@" + String.fromCharCode(8203));
+  else
+      return text;
+}
+var PastebinAPI = require('pastebin-js'),
+    pastebin = new PastebinAPI({
+      'api_dev_key' : config.pastekey,
+      'api_user_name' : config.pasteuname,
+      'api_user_password' : config.pastepass
+    });
 var Quotes = []
 var Fstrings = [" with a transformer.", ", but creates a black hole and gets sucked in.", " with poutine.", ", but they slipped on a banana peel", " and in the end, the only victor was the coffin maker.", ", and what a fight it is!  Whoa mama!", ", with two thousand blades!", ", but he fell into a conveniently placed manhole!" , ", but they tripped over a rock and fell in the ocean.", ", but they hurt themselves in their confusion.", ". SHORYUKEN!", ". HADOUKEN!", ". KA-POW!", " with a pillow.", " with a large fish.", ", but they stumbled over their shoelaces.", ", but they missed.", " with a burnt piece of toast.", ", but it wasn't very effective..."];
 var rand = Fstrings[Math.floor(Math.random() * Fstrings.length)];
@@ -50,7 +64,7 @@ else if (message.content.startsWith(prefix + 'pressF')) {
   if (message.content === (prefix + 'help')
 ) {
     message.react('👌');
-    message.author.send("HELP:\np.help: This, of course.\np.ping: Shows your ping.\np.pressF: Pays Respects to a user, defaults to you if no user is mentioned.\np.quote: Pull a quote.\np.storequote: Store a quote to pull later.\np.coin: Flip a coin.\np.spongemock <text>: MoCk SoMe TeXt\np.fight @user: Fight someone, ripped straight from Bup.Bot\np.guildinfo: Learn about the guild you're in. **REQUIRES EMBED LINKS**\np.spinner: Spin a fidget spinner.\np.about: Learn more about me!")
+    message.author.send("HELP:\np.help: This, of course.\np.ping: Shows your ping.\np.pressF: Pays Respects to a user, defaults to you if no user is mentioned.\np.quote: Pull a quote.\np.storequote: Store a quote to pull later.\np.coin: Flip a coin.\np.spongemock <text>: MoCk SoMe TeXt\np.fight @user: Fight someone, ripped straight from Bug Bot.\np.guildinfo: Learn about the guild you're in. **REQUIRES EMBED LINKS**\np.spinner: Spin a fidget spinner.\np.about: Learn more about me!\np.shame: S H A M E\np.dadmode: Ever wanted Paradox to make shitty dad jokes? Me neither, but I did it anyway.\np.aesthetic: M A K E S T E X T V A P O R W A V E\np.temp: Convert temperatures between F and C and vice versa.\np.eval: ***SECRET COMMAND NOT FOR USE BY NORMIES***")
 }
 Array.prototype.randomElement = function (array) {
     return array[Math.floor(Math.random() * array.length)]
@@ -115,7 +129,7 @@ if (message.content === (prefix + "guildinfo")) {
       "description": "Created by " + message.guild.owner.user.tag + " on "  + message.guild.createdAt,
       "color": message.member.displaycolor,
       "thumbnail": {
-        "url": message.guild.iconURL
+        "url": message.guild.iconURL()
       },
       "author": {
         "name": "Information on " + message.guild.name + ":"
@@ -219,6 +233,40 @@ if (message.content.startsWith(prefix + "temp")) {
     message.channel.send(starttemp + "°F = " + endtemp + "°C.")
   }
 }
+      if (message.content.startsWith(prefix + "eval")) {
+            const args = message.content.split(" ").slice(1);
+    if(message.author.id !== "158272711146209281") return;
+    try {
+      const code = args.join(" ");
+      let evaled = eval(code);
+
+      if (typeof evaled !== "string")
+        evaled = require("util").inspect(evaled);
+  var evalOut = (clean(evaled))
+  if (evalOut.length > 2000) {
+    pastebin
+    .createPaste({
+        text: evalOut,
+        title: "p.eval Output " + moment().format('MMMM Do YYYY, h:mm a [EST]'),
+        format: null,
+        privacy: 3, 
+        expiration: null
+    })
+    .then(function (data) {
+        // we have succesfully pasted it. Data contains the id 
+        message.channel.send("Output larger than 2000 characters, posted to " + (data) + " .");
+    })
+    .fail(function (err) {
+        console.log(err);
+    });
+}
+else {
+message.channel.send("```xl\n" + evalOut + "\n```")
+}
+    } catch (err) {
+      message.channel.send(`\`ERROR\` \`\`\`xl\n${clean(err)}\n\`\`\``);
+    }
+  }
 });
 //Token
 client.login(config.token);
