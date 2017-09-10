@@ -1,7 +1,7 @@
 # Paradox
 A Discord bot for fun, moderation, and probably maybe some other stuff I dunno
 
-Hi, I'm Ben, or Gallium as some of you know me. I do things with programming, like [bash scripts](https://github.com/benzarr410/command-line-fun). I'm also making a bot.
+Hi, I'm Ben, or Gallium as some of you know me. I do things with programming, like [bash scripts](https://github.com/benzarr410/command-line-fun). I'm also making a [selfbot](https://github.com/benzarr410/Selfbot).
 
 ## So what's this all about?
 It's a little bot I made, it's public now so you can take a looksie [here.](https://bots.discord.pw/bots/315834856095481856)

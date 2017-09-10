@@ -1,24 +1,18 @@
 //Constants
 const Discord = require('discord.js');
 const client = new Discord.Client();
-const sleep = require('system-sleep');
 const fs = require('fs');
 const config = require('./config.json');
-const moment = require('moment');
-var now = new moment();
+const away = require("./away.json");
+const tags = require("./tags.json")
+const prefix = config.prefix
 function clean(text) {
   if (typeof(text) === "string")
     return text.replace(/`/g, "`" + String.fromCharCode(8203)).replace(/@/g, "@" + String.fromCharCode(8203));
   else
       return text;
 }
-var PastebinAPI = require('pastebin-js'),
-    pastebin = new PastebinAPI({
-      'api_dev_key' : config.pastekey,
-      'api_user_name' : config.pasteuname,
-      'api_user_password' : config.pastepass
-    });
-var Quotes = []
+const hastebin = require('hastebin-gen');
 var Fstrings = [" with a transformer.", ", but creates a black hole and gets sucked in.", " with poutine.", ", but they slipped on a banana peel", " and in the end, the only victor was the coffin maker.", ", and what a fight it is!  Whoa mama!", ", with two thousand blades!", ", but he fell into a conveniently placed manhole!" , ", but they tripped over a rock and fell in the ocean.", ", but they hurt themselves in their confusion.", ". SHORYUKEN!", ". HADOUKEN!", ". KA-POW!", " with a pillow.", " with a large fish.", ", but they stumbled over their shoelaces.", ", but they missed.", " with a burnt piece of toast.", ", but it wasn't very effective..."];
 var rand = Fstrings[Math.floor(Math.random() * Fstrings.length)];
 var dadmode = 0
@@ -31,16 +25,17 @@ function insertSpaces(aString) {
 function randNum(min, max) {
   return Math.floor(Math.random() * (max - min + 1)) + min;
 }
-//Boot Sequencef
+//Boot Sequences
 client.on('ready', () => {
   console.log('Ready!')
 });
-//The Good Shit
-var prefix = "p."
 //Ping command
 client.on('ready', () => {
         client.user.setGame('Being Coded by Gallium#1327...slowly');
 });
+client.on('guildCreate', () => {
+  console.log("Joined guild " + guild.name + "with " + guild.memberCount + " members.")
+})
 client.on('message', message => {
 if (message.author.bot) {return};
   if (message.content.startsWith (prefix + 'ping')
@@ -102,7 +97,9 @@ else
 //SpOnGeMoCk CoMmAnD
 if (message.content.startsWith(prefix + 'spongemock')) {
   var mocktext = message.content.substring(12)
-  message.channel.send(mocktext.toAlternatingCase() + "\n\nhttps://pbs.twimg.com/media/C_emMBoWsAAgxCu.jpg")
+  message.channel.send(mocktext.toAlternatingCase(), {
+    files: ['./mock.jpg']
+});
 }
 //Fight Command, No regrets, Logiz
 if(message.content.startsWith(prefix + "fight")) {
@@ -152,7 +149,7 @@ if (message.content === (prefix + "guildinfo")) {
 message.channel.send({embed})
 }}
 if (message.content === (prefix + 'about')){
-message.channel.send(":wave: **Hi there!** :smiley: \n\nThis bot is made by Gallium#1327, and the code can be found at https://github.com/benzarr410/Paradox. It's also being further developed by Akii#2111 so that it fits what their server needs, so check out their repo too at https://github.com/jennasisis/AkiiBot. \n\nYou can find all the commands for this bot by typing ``p.help``. **Remember, this bot is still in development.** So most of its features may still be buggy. If you encounter any problems, please feel free to contact Gallium#1327. \n\n**Thanks for using the bot!**")
+message.channel.send(":wave: **Hi there!** :smiley: \n\nThis bot is made by Gallium#1327, and the code can be found at https://github.com/benzarr410/Paradox. It's also being further developed by Akii#2111 so that it fits what their server needs, so check out their repo too at https://github.com/jennasisis/AkiiBot. \n\nYou can find all the commands for this bot by typing ``p.help``. **Remember, this bot is still in development.** So most of its features may still be buggy. If you encounter any problems, please feel free to contact Gallium#1327 or use p.report. \n\n**Thanks for using the bot!**")
 }
 if(message.content.startsWith(prefix + "shame")) {
  if (message.mentions.users.size < 1) {
@@ -172,33 +169,47 @@ if (message.content.startsWith(prefix + "spinner")) {
  else {
   var spinnerType = message.content.substring(10)
 if (spinnerType == "red") {
-  var spinner = "<:SpinnerRed:327104207683321856>"
+  var spinner = "<:SpinnerRed:354283874051686401>"
+  var isSpinner = true  
 }
 else if (spinnerType == "orange") {
-  var spinner = "<:SpinnerOrange:327104207662481408>"
+  var spinner = "<:SpinnerOrange:354283875310239745>"
+  var isSpinner = true  
 }
 else if (spinnerType == "yellow") {
-  var spinner = "<:SpinnerYellow:327104208048226304>"
+  var spinner = "<:SpinnerYellow:354283875402252289>"
+  var isSpinner = true  
 }
 else if (spinnerType == "green") {
-  var spinner = "<:SpinnerGreen:327104207058370560> "
+  var spinner = "<:SpinnerGreen:354283875003793409>"
+  var isSpinner = true  
 }
 else if (spinnerType == "blue") {
   var spinner = "<:SpinnerBlue:327104206987198464>"
+  var isSpinner = true  
 }
 else if (spinnerType == "purple") {
   var spinner = "<:SpinnerPurple:327104206567636992>"
+  var isSpinner = true  
 }
 else if (spinnerType == "pink") {
   var spinner = "<:SpinnerPink:327104206244937729>"
+  var isSpinner = true  
 }
 else if (spinnerType == "space") {
   var spinner = "<:SpinnerSpace:327104206060126208>"
+  var isSpinner = true
 }
+else {
+  message.channel.send("You can't spin a spinner that doesn't exist!")
+  var isSpinner = false
+}
+if (isSpinner) {
 message.channel.send("You spun the " + spinnerType + " spinner. " + spinner )
 var spinFor = randNum(10, 120)
-sleep(spinFor*1000);
-message.channel.send("Your " + spinnerType + " spinner spun for **" + spinFor + "** seconds. " + spinner)
+setTimeout(function() {
+   (message.channel.send("Your " + spinnerType + " spinner spun for **" + spinFor + "** seconds. " + spinner)) }, spinFor*1000);
+}
 }}
 if (message.content.startsWith(prefix + "dadmode")) {
   if (message.content.substring(10) === "off") {
@@ -244,21 +255,9 @@ if (message.content.startsWith(prefix + "temp")) {
         evaled = require("util").inspect(evaled);
   var evalOut = (clean(evaled))
   if (evalOut.length > 2000) {
-    pastebin
-    .createPaste({
-        text: evalOut,
-        title: "p.eval Output " + moment().format('MMMM Do YYYY, h:mm a [EST]'),
-        format: null,
-        privacy: 3, 
-        expiration: null
-    })
-    .then(function (data) {
-        // we have succesfully pasted it. Data contains the id 
-        message.channel.send("Output larger than 2000 characters, posted to " + (data) + " .");
-    })
-    .fail(function (err) {
-        console.log(err);
-    });
+   hastebin(evalOut, "js").then(r => {
+    message.channel.send("Output larger than 2000 characters, posted to " + r + " ."); //https://hastebin.com/someurl.js
+}).catch(console.error);
 }
 else {
 message.channel.send("```xl\n" + evalOut + "\n```")
@@ -267,6 +266,74 @@ message.channel.send("```xl\n" + evalOut + "\n```")
       message.channel.send(`\`ERROR\` \`\`\`xl\n${clean(err)}\n\`\`\``);
     }
   }
+if (message.content.startsWith(prefix + "away")){
+  let away = JSON.parse(fs.readFileSync("./away.json", "utf8"));
+  if (!away[message.author.id]) away[message.author.id] = {
+    isAway: true,
+    msg: [message.content.substring(7)]
+    };
+  else away[message.author.id] = {
+      isAway: true,
+      msg: [message.content.substring(7)]
+  };
+  let userData = away[message.author.id];        
+  message.reply("I've set you as **away**. If pinged, I'll send `" + userData.msg + "`.")    
+    fs.writeFile("./away.json", JSON.stringify(away), (err) => {
 });
+}
+if (message.content === (prefix + "back")){
+  let away = JSON.parse(fs.readFileSync("./away.json", "utf8"));
+  let userData = away[message.author.id];          
+      userData.isAway = false,
+      userData.msg = null
+  message.reply("I've set you as **back**. I won't send anything if you're pinged now.")    
+    fs.writeFile("./away.json", JSON.stringify(away), (err) => {
+//Listener for ping where:tm:
+    });
+}
+if (message.content.startsWith(prefix + "avatar")){
+  if (message.mentions.members.size < 1) {
+      message.channel.send("Avatar for **" + message.author.username + "**: " + message.author.avatarURL);
+  }
+  else if (message.mentions.members.size > 1) {
+      message.reply("I can only give you the avatar of one user, silly!")
+  }
+  else {
+     message.channel.send("Avatar for **" + message.mentions.members.first().displayName + "**: " + message.mentions.members.first().user.avatarURL)
+  }
+}
+if (message.content.startsWith(prefix + "prune")) {
+  if (!message.member.permissions.has("MANAGE_MESSAGES")) {
+    message.channel.send("I'm afraid I can't let you do that.\nMissing Permissions");
+  }
+  else {
+  message.channel.bulkDelete(message.content.substring(8))
+ message.reply("Pruned **" + message.content.substring(8) + "** messages.")
+  }
+}
+if (message.content.startsWith(prefix + "report")) {
+  message.client.users.get("158272711146209281").send("**" + message.author.tag + "** reported a bug:" + message.content.substring(8))
+  message.reply("Your report has been sent!")
+}
+if (message.content.startsWith(prefix + "suggest")) {
+  message.client.users.get("158272711146209281").send("**" + message.author.tag + "** suggested a feature:" + message.content.substring(9))
+  message.reply("Your suggestion has been sent!")
+}
+if (message.content.startsWith(prefix + "banne")) {
+  if (message.mentions.members.size < 1) {
+      message.channel.send("u cannot banne no users");
+  }
+  else if (message.mentions.members.size > 1) {
+      message.channel.send("u can only banne one user")
+  }
+  else {
+     message.channel.send("**" + message.mentions.members.first().displayName + "** has ben banne ✨")
+  }
+}
+if (message.content.startsWith(prefix + "speech")) {
+  message.channel.send(message.get(message.content.substring(7)).content)
+  //make this work later or some shit
+}
+})
 //Token
 client.login(config.token);

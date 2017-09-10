@@ -1,6 +1,4 @@
 {
-	"token":"token",
-	"pastekey":"Pastebin API Key",
-	"pasteuname":"If uploading anonymously, not needed, else, Pastebin username",
-	"pastepass":"If uploading anonymously, not needed, else, Pastebin password"
+	"prefix":"p.",
+	"token":"token"
 }
