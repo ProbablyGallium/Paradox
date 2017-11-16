@@ -23,11 +23,7 @@ function insertSpaces(aString) {
 function randNum(min, max) {
   return Math.floor(Math.random() * (max - min + 1)) + min;
 }
-//Boot Sequences
-client.on('ready', () => {
-  console.log('Ready!')
-});
-//Ping command
+
 client.on('ready', () => {
   console.log("Logged in and ready to serve " + client.guilds.size + " servers!")
 });
@@ -72,7 +68,6 @@ else
 //SpOnGeMoCk CoMmAnD
 if (message.content.startsWith(prefix + 'spongemock')) {
   args.shift()
-  console.log(args.length)
   var mocktext = args.join(" ")
 if (message.content.substring(15) != 0) {
     message.channel.send(mocktext.toAlternatingCase(), {
@@ -80,6 +75,7 @@ if (message.content.substring(15) != 0) {
 })}
 else {
   message.reply("YoU cAn'T mOcK tExT tHaT dOeSnT eXiSt")
+}
 }
 //Fight Command, No regrets, Logiz
 if (message.content.startsWith(prefix + "fight")) {
@@ -321,7 +317,6 @@ args.shift()
   require('child_process').exec(args.join(" "),(e,out,err)=>{message.channel.send("```" + out + "```")})
 }
   }
-}
 });
 
 client.login(config.token);
