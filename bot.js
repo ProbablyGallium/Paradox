@@ -278,7 +278,8 @@ if (message.content.startsWith(prefix + "color")) {
 args.shift()
 console.log(args)
 var a = args[0];
-if (!a.startsWith("#") || a.length > 7) {
+var hex = /[#][0-9a-fA-F]+/
+if (!hex.test(a) || a.length != 7) {
   return message.reply("Either you didn't provide a hex code, or your hex code wasn't the right length. I only accept 6 character hex codes.")
 }
 message.guild.createRole({name:a,
@@ -297,6 +298,10 @@ args.shift()
   require('child_process').exec(args.join(" "),(e,out,err)=>{message.channel.send("```" + out + "```")})
 }
   }
+if (message.content.startsWith(prefix + "clap")) {
+  args.shift()
+  message.channel.send(args.join(" 👏 "))
+}
 });
 
 client.login(config.token);
