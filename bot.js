@@ -26,6 +26,7 @@ function randNum(min, max) {
 
 client.on('ready', () => {
   console.log("Logged in and ready to serve " + client.guilds.size + " servers!")
+  client.user.setGame("p.help for commands!")
 });
 client.on('message', message => {
   const args = message.content.slice(prefix.length).trim().split(/ +/g);
@@ -50,7 +51,7 @@ else if (message.content === prefix + 'pressF') {
   if (message.content === (prefix + 'help')
 ) {
     message.react('👌');
-    message.author.send("HELP:\np.help: This, of course.\np.ping: Shows your ping.\np.pressF: Pays Respects to a user, defaults to you if no user is mentioned.\np.coin: Flip a coin.\np.spongemock <text>: MoCk SoMe TeXt\np.fight @user: Fight someone, ripped straight from Bug Bot.\np.guildinfo: Learn about the guild you're in. **REQUIRES EMBED LINKS**\np.spinner: Spin a fidget spinner.\np.about: Learn more about me!\np.shame: S H A M E\np.dadmode: Ever wanted Paradox to make shitty dad jokes? Me neither, but I did it anyway.\np.aesthetic: M A K E S T E X T V A P O R W A V E\np.temp: Convert temperatures between F and C and vice versa.\np.eval: ***SECRET COMMAND NOT FOR USE BY NORMIES***")
+    message.author.send("HELP:\np.help: This, of course.\np.ping: Shows your ping.\np.pressF: Pays Respects to a user, defaults to you if no user is mentioned.\np.coin: Flip a coin.\np.spongemock <text>: MoCk SoMe TeXt\np.fight @user: Fight someone, ripped straight from Bug Bot.\np.guildinfo: Learn about the guild you're in. **REQUIRES EMBED LINKS**\np.spinner: Spin a fidget spinner.\np.about: Learn more about me!\np.shame: S H A M E\np.dadmode: Ever wanted Paradox to make shitty dad jokes? Me neither, but I did it anyway.\np.aesthetic: M A K E S T E X T V A P O R W A V E\np.eval: ***SECRET COMMAND NOT FOR USE BY NORMIES***")
 }
 Array.prototype.randomElement = function (array) {
     return array[Math.floor(Math.random() * array.length)]
@@ -208,18 +209,6 @@ if (message.content.startsWith(prefix + 'aesthetic')) {
   var wavetext = insertSpaces(spacedtext)
   message.channel.send("```"+wavetext.substring(2)+"```")
 }
-if (message.content.startsWith(prefix + "temp")) {
-  if (message.content.substring(7,8) === "c") {
-    var starttemp = message.content.substring(8)
-    var endtemp = Math.round(10*starttemp*1.8+32)/10;
-    message.channel.send(starttemp + "°C = " + endtemp + "°F.")
-  }
-  else if (message.content.substring(7,8) === "f") {
-    var starttemp = message.content.substring(8)
-    var endtemp = Math.round(10*(starttemp-32)/1.8)/10
-    message.channel.send(starttemp + "°F = " + endtemp + "°C.")
-  }
-}
 if (message.content.startsWith(prefix + "eval")) {
             const Eargs = message.content.split(" ").slice(1);
     if(message.author.id !== "158272711146209281") return;
@@ -252,15 +241,6 @@ if (message.content.startsWith(prefix + "avatar")) {
   }
   else {
      message.channel.send("Avatar for **" + message.mentions.members.first().displayName + "**: " + message.mentions.members.first().user.avatarURL)
-  }
-}
-if (message.content.startsWith(prefix + "prune")) {
-  if (!message.member.permissions.has("MANAGE_MESSAGES")) {
-    message.channel.send("I'm afraid I can't let you do that.\nMissing Permissions");
-  }
-  else {
-  message.channel.bulkDelete(message.content.substring(8))
- message.reply("Pruned **" + message.content.substring(8) + "** messages.")
   }
 }
 if (message.content.startsWith(prefix + "report")) {
