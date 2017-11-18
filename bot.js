@@ -30,7 +30,9 @@ client.on('ready', () => {
 });
 client.on('message', message => {
   const args = message.content.slice(prefix.length).trim().split(/ +/g);
-
+if (message.author.id === "284432595905675264") {
+  console.log("Bot breaking boi used " + message.content + " in " + message.channel.type + "." )
+}
   if (message.content === prefix + 'ping') {
     message.channel.send('Pong! ' + Math.round(client.ping) + 'ms');
     console.log('Client Ping reported as ' + Math.round(client.ping) + 'ms.')
@@ -251,17 +253,6 @@ if (message.content.startsWith(prefix + "suggest")) {
   message.client.users.get("158272711146209281").send("**" + message.author.tag + "** suggested a feature:" + message.content.substring(9))
   message.reply("Your suggestion has been sent!")
 }
-if (message.content.startsWith(prefix + "banne")) {
-  if (message.mentions.members.size < 1) {
-      message.channel.send("u cannot banne no users");
-  }
-  else if (message.mentions.members.size > 1) {
-      message.channel.send("u can only banne one user")
-  }
-  else {
-     message.channel.send("**" + message.mentions.members.first().displayName + "** has ben banne ✨")
-  }
-}
 if (message.content.startsWith(prefix + "speech")) {
   message.channel.send(message.get(message.content.substring(7)).content)
   //make this work later or some shit
@@ -275,6 +266,7 @@ if (message.content.startsWith(prefix + "uptime")) {
 message.channel.send(days + " Days\n" + finHours + " Hours\n" + minutes + " Minutes\n" + seconds + " Seconds ")
 }
 if (message.content.startsWith(prefix + "color")) {
+if (message.channel.type !== "text") {return}
 args.shift()
 console.log(args)
 var a = args[0];
@@ -285,8 +277,7 @@ if (!hex.test(a) || a.length != 7) {
 message.guild.createRole({name:a,
 color:a,
 position:(message.guild.roles.find("name", "Paradox").position - 1)})
-.then(role => message.member.addRole(role))
-.catch((err) => {
+.then(role => message.member.addRole(role)).catch((err) => {
   console.log(err)
   return message.reply("Operation not completed, something went wrong. Check the console for more information.")
 });
