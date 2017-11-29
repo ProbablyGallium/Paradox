@@ -99,31 +99,16 @@ if (message.content === (prefix + "guildinfo")) {
     message.channel.send("Whoa, there! You trying to crash the bot? I can't give you guild info in a channel that isn't in a guild!")
   }
   else {
-    const embed = {
-      "description": "Created by " + message.guild.owner.user.tag + " on "  + message.guild.createdAt,
-      "color": message.member.displaycolor,
-      "thumbnail": {
-        "url": message.guild.iconURL()
-      },
-      "author": {
-        "name": "Information on " + message.guild.name + ":"
-      },
-      "fields": [
-        {
-          "name": "Guild ID",
-          "value": message.guild.id
-        },
-        {
-          "name": "Members",
-          "value": message.guild.memberCount + " members"
-        },
-        {
-          "name": "Region",
-          "value": message.guild.region
-        }
-      ]
-    };
-message.channel.send({embed})
+    var serverCreated = new Date(message.guild.createdTimestamp);
+    message.channel.send(new Discord.RichEmbed()
+        .setDescription(`Created by ${message.guild.owner.user.tag} on ${serverCreated.toLocaleDateString()}`)
+        .setColor(message.member.displayColor)
+        .setThumbnail(message.guild.iconURL)
+        .setAuthor(`Information on ${message.guild.name}:`)
+        .addField("Guild ID:", message.guild.id)
+        .addField("Members:", message.guild.memberCount)
+        .addField("Region:", message.guild.region)
+    );
 }}
 if (message.content === (prefix + 'about')){
 message.channel.send(":wave: **Hi there!** :smiley: \n\nThis bot is made by Gallium#1327, and the code can be found at https://github.com/benzarr410/Paradox. It's also being further developed by Akii#2111 so that it fits what their server needs, so check out their repo too at https://github.com/jennasisis/AkiiBot. \n\nYou can find all the commands for this bot by typing ``p.help``. **Remember, this bot is still in development.** So most of its features may still be buggy. If you encounter any problems, please feel free to contact Gallium#1327 or use p.report. \n\n**Thanks for using the bot!**")
