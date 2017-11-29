@@ -1,5 +1,6 @@
 # Paradox
 
+## Join the support server for updates and to suggest things and report bugs!
 [<img src="https://canary.discordapp.com/api/guilds/385283622053085185/widget.png?style=banner2">](https://discord.gg/w93HCVe)
 
 
