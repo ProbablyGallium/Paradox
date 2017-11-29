@@ -233,7 +233,7 @@ message.channel.send("```xl\n" + evalOut + "\n```")
   }
 
 if (message.content.startsWith(prefix + "avatar")) {
-  if (message.mentions.members.size < 1) {
+  if (message.channel.type !== "text" || message.mentions.members.size < 1) {
       message.channel.send("Avatar for **" + message.author.username + "**: " + message.author.avatarURL);
   }
   else if (message.mentions.members.size > 1) {
@@ -263,7 +263,7 @@ if (message.content.startsWith(prefix + "banne")) {
   }
 }
 if (message.content.startsWith(prefix + "speech")) {
-  message.channel.send(message.get(message.content.substring(7)).content)
+//  message.channel.send(message.get(message.content.substring(7)).content)
   //make this work later or some shit
 }
 if (message.content.startsWith(prefix + "uptime")) {
