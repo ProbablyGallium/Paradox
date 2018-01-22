@@ -1,21 +1,9 @@
-const Discord = require('discord.js');
+const Discord = require("discord.js");
 const client = new Discord.Client();
 const config = require('./config.json');
-const fs = require('fs');
-
-function clean(text) {
-  if (typeof(text) === "string")
-    return text.replace(/`/g, "`" + String.fromCharCode(8203)).replace(/@/g, "@" + String.fromCharCode(8203));
-  else
-      return text;
-}
-
-function insertSpaces(aString) {
-  return aString.split("").join(" ");
-}
 
 function insertClap(aString) {
-  return aString.split("").join(" 👏 ");
+  return aString.split(" ").join(" 👏 ");
 }
 
 function randNum(min, max) {
@@ -32,10 +20,16 @@ String.prototype.toAlternatingCase = function () {
     tmp = this.toLowerCase(); (this[0] == this[0].toLowerCase() ? i = 1 : i = 0); for(i; i < tmp.length; i = i+2) { tmp = tmp.substr(0,i) + tmp[i].toUpperCase() + tmp.substr(i+1); } return tmp;
 }
 
-Array.prototype.randomElement = function (array) {
+function randomElement(array) {
     return array[Math.floor(Math.random() * array.length)]
 }
 
+function clean(text) {
+  if (typeof(text) === "string")
+    return text.replace(/`/g, "`" + String.fromCharCode(8203)).replace(/@/g, "@" + String.fromCharCode(8203));
+  else
+      return text;
+}
 client.on('ready', () => {
   console.log(`Logged in and ready to serve ${client.users.size} users, in ${client.channels.size} channels of ${client.guilds.size} guilds.`)
   client.user.setGame(config.game);
@@ -61,10 +55,9 @@ client.on('message', message => {
       return message.channel.send(`${message.author} 🇫`);
     message.channel.send(`${member} 🇫`);
   } else
-
   if (command === 'help') {
     message.react('👌');
-    message.author.send(`**Available Commands in ${message.channel}:**\n\n\`p.help\` - This, of course.\n\`p.ping\` - Shows your ping.\n\`p.pressF\` - Pays respects to a user or you.\n\`p.coin\` - Flip a coin.\n\`p.spongemock [text]\` - MoCk SoMe TeXt\n\`p.fight <user>\` - Fight someone, ripped straight from Bug Bot.\n\`p.guildinfo\` - Learn about the guild you're in.\n\`p.spinner [type]\` - Spin a fidget spinner.\n\`p.about\` - Learn more about me!\n\`p.shame\` - S H A M E\n\`p.dadmode\` - Ever wanted Paradox to make shitty dad jokes? Me neither, but I did it anyway.\n\`p.clap\` - Claps\n\`p.invite\` - Gets an invite link for the bot.\n\`p.aesthetic\` - M A K E S T E X T V A P O R W A V E\n\`p.avatar <user>\` - Gets the avatar of a user or you.\n\`p.report [bug]\` - Reports a bug to the developers.\n\`p.suggest [feature]\` - Suggests a feature to the developers.\n\`p.banne\` - Banne a user.\n\`p.uptime\` - Check the bot's uptime.\n\n**__Developer__**\n\n\`p.eval\` - ***SECRET COMMAND NOT FOR USE BY NORMIES***\n\`p.say\` - Makes the bot say something.\n\nFor additional help contact Gallium#1327 or join https://discord.gg/By4Qs4R`);
+    message.author.send(`**Available Commands:**\n\n\`p.help\` - This, of course.\n\`p.ping\` - Shows your ping.\n\`p.pressF\` - Pays respects to a user or you.\n\`p.coin\` - Flip a coin.\n\`p.spongemock [text]\` - MoCk SoMe TeXt\n\`p.fight <user>\` - Fight someone, ripped straight from Bug Bot.\n\`p.guildinfo\` - Learn about the guild you're in.\n\`p.spinner [type]\` - Spin a fidget spinner.\n\`p.about\` - Learn more about me!\n\`p.shame\` - S H A M E\n\`p.dadmode\` - Ever wanted Paradox to make shitty dad jokes? Me neither, but I did it anyway.\n\`p.clap\` - Claps\n\`p.invite\` - Gets an invite link for the bot.\n\`p.aesthetic\` - M A K E S T E X T V A P O R W A V E\n\`p.avatar <user>\` - Gets the avatar of a user or you.\n\`p.report [bug]\` - Reports a bug to the developers.\n\`p.suggest [feature]\` - Suggests a feature to the developers.\n\`p.banne\` - Banne a user.\n\`p.uptime\` - Check the bot's uptime.\n\n**__Developer__**\n\n\`p.eval\` - ***SECRET COMMAND NOT FOR USE BY NORMIES***\n\`p.say\` - Makes the bot say something.\n\`p.skyrim <meme name> - Post a skyrim meme, such as speech, block, or reflect.\`\n\nFor additional help contact Gallium#1327 or join https://discord.gg/By4Qs4R`);
   } else
 
   if (command === 'coin') {
@@ -87,8 +80,8 @@ client.on('message', message => {
   if (command === "fight") {
     let member = message.mentions.members.first();
     if (!member)
-      return message.channel.send(`${message.author.username} is fighting Paradox${Fstrings.randomElement(Fstrings)}`);
-    message.channel.send(`${message.author.username} is fighting ${member}${Fstrings.randomElement(Fstrings)}`);
+      return message.channel.send(`${message.author.username} is fighting Paradox${randomElement(Fstrings)}`);
+    message.channel.send(`${message.author.username} is fighting ${member}${randomElement(Fstrings)}`);
   } else
 
   if (command === "guildinfo") {
@@ -105,11 +98,11 @@ client.on('message', message => {
   } else
 
   if (command === 'about') {
-    message.channel.send(":wave: Hello, I am **Paradox**!\n\nI am a Discord bot for fun and moderation!\n\nI was written by **Gallium**#1327 using Discord.js. You can find my code at <https://github.com/benzarr410/Paradox>.\n\nTo see a full list of commands, type `p.help`, or join my support server at <https://discord.gg/By4Qs4R>!\n\nIf you want to invite me to your server use `p.invite`!")
+    message.channel.send(":wave: Hello, I am **Paradox**!\n\nI am a Discord bot for entertainment!\n\nI was written by **Gallium**#1327 using Discord.js. You can find my code at <https://github.com/benzarr410/Paradox>.\n\nTo see a full list of commands, type `p.help`, or join my support server at <https://discord.gg/By4Qs4R>!\n\nIf you want to invite me to your server use `p.invite`!")
   } else
 
   if (command === 'invite') {
-    message.channel.send("Paradox is a Discord bot for fun and moderation!\nTo add me to your server, click the link below:\n\n:link: **<https://discordapp.com/oauth2/authorize?client_id=315834856095481856&scope=bot&permissions=268747841>**\n\nTo see a full list of my commands, type `p.help`.\nIf you require additional help, contact **Gallium**#1327 or join my support server <https://discord.gg/By4Qs4R>")
+    message.channel.send("Paradox is a Discord bot for entertainment!\nTo add me to your server, click the link below:\n\n:link: **<https://discordapp.com/oauth2/authorize?client_id=315834856095481856&scope=bot&permissions=268747841>**\n\nTo see a full list of my commands, type `p.help`.\nIf you require additional help, contact **Gallium**#1327 or join my support server <https://discord.gg/By4Qs4R>")
   } else
 
   if(command === "shame") {
@@ -124,28 +117,28 @@ client.on('message', message => {
     if (!spinnerType)
       return message.channel.send("Spin a spinner using `p.spinner [type]`\n\nAvailable spinners: Red, Orange, Yellow, Green, Blue, Purple, Space");
     if (spinnerType === "red") {
-      var spinner = "<:SpinnerRed:354283874051686401>"
+      var spinner = "<:s:354283874051686401>"
     } else
     if (spinnerType === "orange") {
-      var spinner = "<:SpinnerOrange:354283875310239745>"
+      var spinner = "<:s:354283875310239745>"
     } else
     if (spinnerType === "yellow") {
-      var spinner = "<:SpinnerYellow:354283875402252289>"
+      var spinner = "<:s:354283875402252289>"
     } else
     if (spinnerType === "green") {
-      var spinner = "<:SpinnerGreen:354283875003793409>"
+      var spinner = "<:s:354283875003793409>"
     } else
     if (spinnerType === "blue") {
-      var spinner = "<:SpinnerBlue:327104206987198464>"
+      var spinner = "<:s:327104206987198464>"
     } else
     if (spinnerType === "purple") {
-      var spinner = "<:SpinnerPurple:327104206567636992>"
+      var spinner = "<:s:327104206567636992>"
     } else
     if (spinnerType === "pink") {
-      var spinner = "<:SpinnerPink:327104206244937729>"
+      var spinner = "<:s:327104206244937729>"
     } else
     if (spinnerType === "space") {
-      var spinner = "<:SpinnerSpace:327104206060126208>"
+      var spinner = "<:s:327104206060126208>"
     } else return message.channel.send("Not a valid spinner type!\n\nAvailable spinners: Red, Orange, Yellow, Green, Blue, Purple, Space")
     message.channel.send(`You spun the ${spinnerType} spinner. ${spinner}`);
     var spinFor = randNum(10, 120);
@@ -243,6 +236,56 @@ client.on('message', message => {
       return message.channel.send("Please enter a message!");
     message.channel.send(insertClap(text));
   }
+  if (command === "skyrim") {
+    let meme = args[0]
+    if (meme === "speech") {
+      var img = "https://why-are-you-buying-clothes-at.the-soup.store/451273.png"
+    } else if (meme === "block" || meme === "blocc") {
+      var img = "https://why-are-you-buying-clothes-at.the-soup.store/99d21a.png"
+    } else if (meme === "reflect") {
+      var img = "https://why-are-you-buying-clothes-at.the-soup.store/48f40a.png"
+    } else if (meme === "destruction") {
+      var img = "https://why-are-you-buying-clothes-at.the-soup.store/7409d9.png"
+    } else {
+      return message.reply("Sorry, " + meme + " is not a valid meme. Valid memes are currently `speech`, `block`, `reflect`, and `destruction`.")
+    }
+    let roles = message.member.roles.array()
+    if (roles.length == 1) {
+      var color = "#FFFFFF"
+    }
+    else {
+      var color = message.member.displayColor
+    }
+    message.channel.send(new Discord.RichEmbed().setColor(color).setImage(img))
+  }
+  if (command === "sys") {
+    if (!message.author.id === "158272711146209281") {return}
+    require('child_process').exec(args.join(" "),(e,out,err) =>{
+      message.channel.send("```bash\n" + out + "\n```")
+    })
+  }
+  if (command === "restart") {
+    if (!message.author.id === "158272711146209281") {return}
+    message.channel.send("Restarting...")
+    require('child_process').exec('pm2 restart Paradox');
+}
+  if (command === "eval") {
+    if (message.author.id !== "158272711146209281") {return;}
+    try {
+      const code = args.join(" ");
+      let evaled = eval(code);
+      if (typeof evaled !== "string")
+        evaled = require("util").inspect(evaled);
+  var evalOut = (clean(evaled))
+  if (evalOut.length >= 2000) {
+    message.channel.send("Output larger than 2000 characters, pls help"); 
+}
+else {
+message.channel.send("```js\n" + evalOut + "\n```")
+}
+    } catch (err) {
+      message.channel.send(`\`ERROR\` \`\`\`xl\n${clean(err)}\n\`\`\``);
+    }
+  }
 });
-
 client.login(config.token);
