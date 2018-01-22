@@ -174,20 +174,6 @@ client.on('message', message => {
       message.channel.send(`\`\`\`${insertSpaces(spacedText)}\`\`\``);
   } else
 
-  if (command === 'eval') {
-    if (message.author.id !== config.devID) return;
-    try {
-      const code = args.join(" ");
-      let evaled = eval(code);
-
-      if (typeof evaled !== "string")
-        evaled = require("util").inspect(evaled);
-      message.channel.send(clean(evaled), {code:"xl"});
-    } catch (err) {
-      message.channel.send(`An error occurred:\`\`\`xl\n${clean(err)}\n\`\`\``);
-    }
-  } else
-
   if (command === 'avatar') {
     let member = message.mentions.members.first();
     if (!member)
