@@ -1,6 +1,7 @@
 const Discord = require("discord.js");
 const client = new Discord.Client();
 const config = require('./config.json');
+const hastebin = require('hastebin-gen');
 
 function insertClap(aString) {
   return aString.split(" ").join(" 👏 ");
@@ -32,10 +33,11 @@ function clean(text) {
 }
 client.on('ready', () => {
   console.log(`Logged in and ready to serve ${client.users.size} users, in ${client.channels.size} channels of ${client.guilds.size} guilds.`)
-  client.user.setGame(config.game);
+  client.user.setActivity(config.game, {type: config.status})
 });
 
 client.on('message', message => {
+  try { 
   if (message.author.bot) return;
   if (message.channel.type === "dm") return;
   if (message.content.startsWith("I'm") && dadmode == "1") {
@@ -44,7 +46,9 @@ client.on('message', message => {
   if (message.content.indexOf(config.prefix) !== 0) return;
   const args = message.content.slice(config.prefix.length).trim().split(/ +/g);
   const command = args.shift().toLowerCase();
-
+  if (message.content.startsWith(config.prefix)) {
+    console.log(`Command ${command} called by user ${message.author.id} in guild ${message.guild.id}.`)
+  }
   if (command === 'ping') {
     message.channel.send(`Ping: ${Math.round(client.ping)}ms`);
   } else
@@ -112,7 +116,7 @@ client.on('message', message => {
     message.channel.send(`${member} 🔔 ***S H A M E*** 🔔`);
   } else
 
-  if (command === "spinner") {
+  if (command === " ") {
     const spinnerType = args.join(" ");
     if (!spinnerType)
       return message.channel.send("Spin a spinner using `p.spinner [type]`\n\nAvailable spinners: Red, Orange, Yellow, Green, Blue, Purple, Space");
@@ -233,7 +237,7 @@ client.on('message', message => {
     } else if (meme === "destruction") {
       var img = "https://why-are-you-buying-clothes-at.the-soup.store/7409d9.png"
     } else {
-      return message.reply("Sorry, " + meme + " is not a valid meme. Valid memes are currently `speech`, `block`, `reflect`, and `destruction`.")
+      return message.reply("That is not a meme. Valid memes are currently `speech`, `block`, `reflect`, and `destruction`.")
     }
     let roles = message.member.roles.array()
     if (roles.length == 1) {
@@ -242,8 +246,13 @@ client.on('message', message => {
     else {
       var color = message.member.displayColor
     }
+    if (message.guild.me.hasPermission("MANAGE_MESSAGES")) {
+      message.delete()
+      message.channel.send(new Discord.RichEmbed().setColor(color).setImage(img).setFooter("Meme from " + message.member.displayName,message.author.avatarURL))
+  } else {
     message.channel.send(new Discord.RichEmbed().setColor(color).setImage(img))
   }
+}
   if (command === "sys") {
     if (!message.author.id === "158272711146209281") {return}
     require('child_process').exec(args.join(" "),(e,out,err) =>{
@@ -263,8 +272,10 @@ client.on('message', message => {
       if (typeof evaled !== "string")
         evaled = require("util").inspect(evaled);
   var evalOut = (clean(evaled))
-  if (evalOut.length >= 2000) {
-    message.channel.send("Output larger than 2000 characters, pls help"); 
+  if (evalOut.length >= 1990) {
+    hastebin(evalOut, "js").then(link => {
+      message.channel.send("Output larger than 2000 characters, it has been posted to " + link); 
+  }).catch(console.error);
 }
 else {
 message.channel.send("```js\n" + evalOut + "\n```")
@@ -273,5 +284,19 @@ message.channel.send("```js\n" + evalOut + "\n```")
       message.channel.send(`\`ERROR\` \`\`\`xl\n${clean(err)}\n\`\`\``);
     }
   }
+  if (command === "getinvite") {
+    if (message.author.id !== "158272711146209281") {return;}
+    client.channels.get(args[0]).createInvite().then(invite => {message.channel.send(`${invite}`)});
+  }
+  if (command === "nou") {
+    if (message.guild.me.hasPermission("MANAGE_MESSAGES")) {
+      message.channel.send(new Discord.RichEmbed().setImage("https://why-are-you-buying-clothes-at.the-soup.store/6c15c9.png"))
+    } else {
+      message.reply("I need the **Manage Messages** permission for this command to work properly!")
+    }
+  }
+} catch (err) {
+ message.reply("Something has gone horribly wrong, I presume. Join the support server and send the following information to Gallium:\n\n" + err)
+}
 });
 client.login(config.token);
